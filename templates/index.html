@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <Link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}"></Link>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>App</title>
+</head>
+<body>
+
+    <div class="split left">
+        <div class="centered">
+            <img src="../static/products/product6.jpg" alt="">
+        </div>
+    </div>
+
+
+    <div class="split right">
+        <div class="container mt-5 mb-5">
+            <div class="d-flex justify-content-center row">
+                <div class="d-flex flex-column col-md-8">
+                    <div>
+                        <label for="">Positive Sentiments : {{ data.positive }}</label>
+                    </div>
+                    <div>
+                        <label for="">Negative Sentiments : {{ data.negative }}</label>
+                    </div>
+                    <div>
+                        <form method="post">
+                          <textarea name="text"></textarea>
+                          <input type="submit">
+                        </form>
+                    </div>
+
+                    <div class="coment-bottom bg-white p-2 px-4">
+                        {% for review in data.reviews %}
+                        <hr/>
+                          <div
+                              class="commented-section mt-2">
+                              <div class="d-flex flex-row align-items-center commented-user">
+                                  </div>
+                                  <div class="text-nowrap bd-highlight"><span>{{ review }}</span></div>
+                                  <hr/>
+                        {% endfor %}
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
