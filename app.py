@@ -5,13 +5,13 @@ from helper import preprocessing, vectorizer, get_prediction
 app = Flask(__name__)
 CORS(app)
 
-data = {'reviews': [], 'positive': 0, 'negative': 0}
+data = {'review': None, 'decision': None}
 
 @app.route("/")
 def index():
-    return redirect("http://localhost:3000/anaysys")
+    return redirect("http://localhost:3000/addreviews/:id")
 
-@app.route("/anaysys")
+@app.route("/analysis")
 def analysis():
     return jsonify(data)
 
@@ -23,12 +23,9 @@ def my_post():
     prediction = get_prediction(vectorized_txt)
 
     global data
-    if prediction == 'negative':
-        data['negative'] += 1
-    else:
-        data['positive'] += 1
+    data['review'] = {'text': text}  # Only store the latest review
+    data['decision'] = 'positive' if prediction != 'negative' else 'negative'  # Update the decision
     
-    data['reviews'].insert(0, {'text': text, 'sentiment': prediction})  # Include sentiment in the reviews
     return jsonify(data)
 
 if __name__ == "__main__":
